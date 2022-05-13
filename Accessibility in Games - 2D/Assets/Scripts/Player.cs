@@ -11,9 +11,6 @@ public class Player : MonoBehaviour
     Rotator[] RotatorObject;
 
     public bool colourBlindFriendly = true; //Colour Blind-Friendly assets are ON by default
-    public bool? increaseGameSpeed = null; //nullible, I don't want it to be true/false .... MAYBE just set false?
-    public bool? decreaseGameSpeed = null;
-    public bool? defaultGameSpeed = null; //MAYBE just set true?
     private bool voiceControl = false;
 
     public KeywordRecognizer keywordRecognizer;
@@ -84,9 +81,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
             SwapAsset();
 
-        //if (Input.GetKeyDown(KeyCode.P))
-        //    SpriteSwapperObject.SwapAsset();
-
+        //when player presses jump/space or left mouse button
         if (Input.GetButtonDown("Jump") || Input.GetMouseButtonDown(0))
             Jump();
 
@@ -102,12 +97,6 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.T))
             DefaultGameSpeed();
 
-        //when player presses jump/space or left mouse button
-        /*if (Input.GetButtonDown("Jump") || Input.GetMouseButtonDown(0))
-        {
-            //not rb.AddForce
-            rigidBody2D.velocity = Vector2.up * jumpForce;
-        }*/
     }
     private void OnDestroy()
     {
@@ -119,9 +108,8 @@ public class Player : MonoBehaviour
     }
     private void Jump()
     {
-        //REMOVE the ButtonDown if statement, replace with "if player said jump" or something like that
         //when player presses jump/space or left mouse button
-        
+        //OR if player said "jump"
         {
             //not rb.AddForce
             rigidBody2D.velocity = Vector2.up * jumpForce;
@@ -131,10 +119,6 @@ public class Player : MonoBehaviour
 
     private void SwapAsset()
     {
-        /*Debug.Log("Press Q Once");
-        SpriteSwapperObject.SwapAsset();
-        Debug.Log("Press Q Twice");*/
-
         {
             if (colourBlindFriendly == true) //turn OFF Colour Blind-Friendly assets by changing to base assets
             {
@@ -239,30 +223,11 @@ public class Player : MonoBehaviour
         int index = UnityEngine.Random.Range(0, 4); //Random.Range is minimum inclusive and maximum exclusive so (0, 1, 2, 3)
         //otherwise if Random.Range is (0, 4) it will only be (0, 1, 2) --- missing one colour in my switch cases
 
-
-        //add if statement to check if colourBlindSafe is on or not
-        /*if(colourBlindSafe == true)
-        {
-            //put the first switch in here
-        }
-        else  if (colourBlindSafe == false)
-        {
-            //put the second switch in here
-        }*/
-
         if(colourBlindFriendly == true)
         {
             switch (index)
             {
-                //maybe add check so it doesn't reuse "currentColour" twice
-                /*case 0: currentColour = "Cyan"; spriteRenderer.color = replicaCyan; break;
-
-                case 1: currentColour = "Yellow"; spriteRenderer.color = replicaYellow; break;
-
-                case 2: currentColour = "Magenta"; spriteRenderer.color = replicaMagenta; break;
-
-                case 3: currentColour = "Pink"; spriteRenderer.color = replicaPink; break;*/
-
+                //maybe add check so it doesn't reuse "currentColour" twice                
                 case 0: currentColour = "Red"; spriteRenderer.sprite = playerRedHeart; break;
 
                 case 1: currentColour = "Green"; spriteRenderer.sprite = playerGreenLeaf; break;
@@ -276,15 +241,7 @@ public class Player : MonoBehaviour
         {            
             switch (index)
             {
-                //maybe add check so it doesn't reuse "currentColour" twice
-                /*case 0: currentColour = "Cyan"; spriteRenderer.color = replicaCyan; break;
-
-                case 1: currentColour = "Yellow"; spriteRenderer.color = replicaYellow; break;
-
-                case 2: currentColour = "Magenta"; spriteRenderer.color = replicaMagenta; break;
-
-                case 3: currentColour = "Pink"; spriteRenderer.color = replicaPink; break;*/
-
+                //maybe add check so it doesn't reuse "currentColour" twice                
                 case 0: currentColour = "Red"; spriteRenderer.sprite = playerRedBase; break;
 
                 case 1: currentColour = "Green"; spriteRenderer.sprite = playerGreenBase; break;
@@ -294,28 +251,7 @@ public class Player : MonoBehaviour
                 case 3: currentColour = "Yellow"; spriteRenderer.sprite = playerYellowBase; break;
             }
         }
-        return index;
-
-        /*switch (index)
-        {
-            //maybe add check so it doesn't reuse "currentColour" twice
-            /*case 0: currentColour = "Cyan"; spriteRenderer.color = replicaCyan; break;
-
-            case 1: currentColour = "Yellow"; spriteRenderer.color = replicaYellow; break;
-
-            case 2: currentColour = "Magenta"; spriteRenderer.color = replicaMagenta; break;
-
-            case 3: currentColour = "Pink"; spriteRenderer.color = replicaPink; break;
-
-            case 0: currentColour = "Red"; spriteRenderer.sprite = spriteRed; break;
-
-            case 1: currentColour = "Green"; spriteRenderer.sprite = spriteGreen; break;
-
-            case 2: currentColour = "Blue"; spriteRenderer.sprite = spriteBlue; break;
-
-            case 3: currentColour = "Yellow"; spriteRenderer.sprite = spriteYellow; break;
-        }
-        return index;*/
+        return index;                
     }
 
     private void RecognisedCommand(PhraseRecognizedEventArgs phrase)

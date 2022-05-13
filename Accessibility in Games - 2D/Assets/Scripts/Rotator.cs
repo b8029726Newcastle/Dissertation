@@ -27,8 +27,6 @@ public class Rotator : MonoBehaviour
 
         rotatorActions.Add("Test", DecreaseRotationSpeed);
 
-        
-        
     }
 
     // Update is called once per frame
@@ -64,33 +62,6 @@ public class Rotator : MonoBehaviour
              }
              Debug.Log("Current Rotation Speed = " + currentRotationSpeed + ". Slow Counter = " + slowCounter);
          }
-        /*else if (Input.GetKeyDown(KeyCode.R)) //increase rotation speed, MAYBE ALSO INCREASE JUMPFORCE/GRAVITY SCALE?
-        {
-            slowCounter = 0;
-            if (fastCounter == 0)
-            {
-                currentRotationSpeed = defaultRotationSpeed;
-            }
-            if (fastCounter < 2)
-            {
-                currentRotationSpeed = currentRotationSpeed + 30f;
-                fastCounter++;
-            }
-            else if (fastCounter >= 2)
-            {
-                currentRotationSpeed = defaultRotationSpeed;
-                fastCounter = 0;
-            }
-            Debug.Log("Current Rotation Speed = " + currentRotationSpeed + ". Fast Counter = " + fastCounter);
-        }
-        else if (Input.GetKeyDown(KeyCode.T)) //default speeds
-        {
-            slowCounter = 0;
-            fastCounter = 0;
-            currentRotationSpeed = defaultRotationSpeed;
-            Debug.Log($"Current Rotation Speed = {currentRotationSpeed}. Fast Counter = {fastCounter}, Slow Counter = {slowCounter}");
-        }*/
-
     }
 
     public void IncreaseRotationSpeed()
