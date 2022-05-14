@@ -1,10 +1,8 @@
-using System; //import for Action
 using System.Collections;
 using System.Collections.Generic;
+using System; //import for Action
 using System.Linq; //ToArray
 using UnityEngine;
-using UnityEngine.Windows.Speech; //import for KeywordRecognizer
-using UnityEngine.SceneManagement;
 
 public class Rotator : MonoBehaviour
 {
@@ -41,7 +39,7 @@ public class Rotator : MonoBehaviour
 
     public void DecreaseRotationSpeed()
      {
-          //reduce rotation speed, MAYBE ALSO REDUCE JUMPFORCE?
+          //reduce rotation speed, MAYBE ALSO REDUCE JUMPFORCE or GravityScale?
          {
              //I think I need to RESET the COUNTERS back to 0 if the "currentRotationSpeed = defaultRotationSpeed";
 

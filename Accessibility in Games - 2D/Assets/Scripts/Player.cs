@@ -1,6 +1,6 @@
-using System; //import for Action
 using System.Collections;
 using System.Collections.Generic;
+using System; //import for Action
 using System.Linq; //ToArray
 using UnityEngine;
 using UnityEngine.Windows.Speech; //import for KeywordRecognizer
@@ -61,6 +61,8 @@ public class Player : MonoBehaviour
         SetRandomColour();
         //diamondSpriteRenderer.color = ;
         actions.Add("Jump", Jump);
+        actions.Add("Dash", Dash);
+        actions.Add("Steady", Steady);
         actions.Add("Swap Assets", SwapAsset);
         actions.Add("Decrease Game Speed", DecreaseGameSpeed);
         actions.Add("Increase Game Speed", IncreaseGameSpeed);        
@@ -97,6 +99,12 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.T))
             DefaultGameSpeed();
 
+        if (Input.GetKeyDown(KeyCode.Tab))
+            Dash();
+
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+            Steady();
+
     }
     private void OnDestroy()
     {
@@ -114,8 +122,22 @@ public class Player : MonoBehaviour
             //not rb.AddForce
             rigidBody2D.velocity = Vector2.up * jumpForce;
             //rigidBody2D.velocity = Vector2.up * jumpForce + Vector2.right; //make it go left and right  ---  prob map to "Q/E" buttons
+            Debug.Log($"Base Jump Force is {jumpForce}. Base Velocity is {rigidBody2D.velocity}");
         }
     }
+
+    private void Dash()
+    {
+        //taesdasda
+        rigidBody2D.velocity = Vector2.up * (jumpForce + 1.5f);
+        Debug.Log($"Dash Jump Force is {jumpForce}. Dash Velocity is {rigidBody2D.velocity}");
+    }
+    private void Steady()
+    {
+        rigidBody2D.velocity = Vector2.up * (jumpForce - 1);
+        Debug.Log($"Steady Jump Force is {jumpForce}. Dash Velocity is {rigidBody2D.velocity}");
+    }
+
 
     private void SwapAsset()
     {
@@ -159,7 +181,7 @@ public class Player : MonoBehaviour
             else if (voiceControl == true) //turn OFF Voice Control and set game pace back to normal
             {
                 jumpForce = 7.5f;
-                rigidBody2D.gravityScale = 1.5f;
+                rigidBody2D.gravityScale = 2;
                 voiceControl = false;
             }
             //interpolated string
@@ -195,7 +217,7 @@ public class Player : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         //@33:22 he  changed the radius to be smaller
-        if(collision.tag == "ColourChanger")
+        if(collision.CompareTag("ColourChanger")) //using == is inefficient according to Unity (UNT00 002)
         {
             SetRandomColour();
             Destroy(collision.gameObject);
@@ -206,7 +228,7 @@ public class Player : MonoBehaviour
         if (collision.name != currentColour) //|| collision.tag != currentColour --- USE TAGS only after assets are changed
         {
             Debug.Log("GAME OVER or REDUCED HEALTH?");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); //reload current scene, player starts from scratch --- maybe add a checkpoint next time
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); //reload current scene, player starts from scratch --- maybe add a checkpoint next time
             //You done fucked up
             //mayybe reduce health
         }

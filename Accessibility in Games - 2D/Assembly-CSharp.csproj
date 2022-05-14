@@ -60,6 +60,7 @@
     <Compile Include="Assets\Scripts\FollowPlayer.cs" />
     <Compile Include="Assets\Scripts\Rotator.cs" />
     <Compile Include="Assets\Scripts\SpriteSwapper.cs" />
+    <Compile Include="Assets\Tae.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

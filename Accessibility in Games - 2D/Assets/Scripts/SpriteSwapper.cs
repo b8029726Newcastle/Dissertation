@@ -1,10 +1,8 @@
-using System; //import for Action
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq; //ToArray
 using UnityEngine;
 using UnityEngine.Windows.Speech; //import for KeywordRecognizer
-using UnityEngine.SceneManagement;
 
 public class SpriteSwapper : MonoBehaviour
 {
@@ -48,11 +46,11 @@ public class SpriteSwapper : MonoBehaviour
     }
     private void OnDestroy()
     {
-        /*if (PlayerObject.keywordRecognizer != null)
+        if (PlayerObject.keywordRecognizer != null)
         {
             PlayerObject.keywordRecognizer.Stop();
             PlayerObject.keywordRecognizer.Dispose();
-        }*/
+        }
     }
 
     private void RecognisedCommand(PhraseRecognizedEventArgs phrase)

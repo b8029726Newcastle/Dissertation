@@ -370,6 +370,7 @@
 "Assets/Scripts/Player.cs"
 "Assets/Scripts/Rotator.cs"
 "Assets/Scripts/SpriteSwapper.cs"
+"Assets/Tae.cs"
 -langversion:9.0
 
 /deterministic
