@@ -24,7 +24,7 @@ public class Rotator : MonoBehaviour
 
         rotatorActions = GameObject.Find("Player").GetComponent<Player>().actions;
 
-        rotatorActions.Add("Test", DecreaseRotationSpeed);
+        //rotatorActions.Add("Test", DecreaseRotationSpeed);
 
     }
 

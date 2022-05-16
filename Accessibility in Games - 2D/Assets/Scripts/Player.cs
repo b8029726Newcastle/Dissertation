@@ -140,6 +140,7 @@ public class Player : MonoBehaviour
             //rigidBody2D.velocity = Vector2.up * jumpForce + Vector2.right; //make it go left and right  ---  prob map to "Q/E" buttons
             Debug.Log($"Base Jump Force is {jumpForce}. Base Velocity is {rigidBody2D.velocity}");
             message = "Jump";
+            FindObjectOfType<AudioManager>().Play("Player Jump");
         }
     }
 
@@ -149,12 +150,14 @@ public class Player : MonoBehaviour
         rigidBody2D.velocity = Vector2.up * (jumpForce + 1.5f);
         Debug.Log($"Dash Jump Force is {jumpForce}. Dash Velocity is {rigidBody2D.velocity}");
         message = "Dash";
+        FindObjectOfType<AudioManager>().Play("Player Dash");
     }
     private void Steady()
     {
         rigidBody2D.velocity = Vector2.up * (jumpForce - 1);
         Debug.Log($"Steady Jump Force is {jumpForce}. Dash Velocity is {rigidBody2D.velocity}");
         message = "Steady";
+        FindObjectOfType<AudioManager>().Play("Player Steady");
     }
 
 
@@ -253,10 +256,12 @@ public class Player : MonoBehaviour
         //@33:22 he  changed the radius to be smaller
         if(collision.CompareTag("ColourChanger")) //using == is inefficient according to Unity (UNT00 002)
         {
+            message = "Colour Changed";
             SetRandomColour();
             TextUI.count += 1; //change this to Collectible instead of ColourChanger
+            FindObjectOfType<AudioManager>().Play("Player Collect");
             Destroy(collision.gameObject);
-            return;
+            return; //return so we don't get game over when it's jsut the colour changer. Brackeys @33:50
         }
 
         //change to tags ONLY with NEW COLOURBLIND-FRIENDLY implementation
@@ -264,6 +269,7 @@ public class Player : MonoBehaviour
         {
             Debug.Log("GAME OVER or REDUCED HEALTH?");
             message = "GAME OVER";
+            FindObjectOfType<AudioManager>().Play("Game Over");
             //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); //reload current scene, player starts from scratch --- maybe add a checkpoint next time
             //You done fucked up
             //mayybe reduce health
