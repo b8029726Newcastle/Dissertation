@@ -13,7 +13,8 @@ public class Rotator : MonoBehaviour
     public float currentRotationSpeed = 100f; //100 degree rotation every second
     private float defaultRotationSpeed = 0;
 
-    private int slowCounter, fastCounter = 0;
+    public int slowCounter, fastCounter = 0;
+    //public int slowCounter, fastCounter = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -46,20 +47,24 @@ public class Rotator : MonoBehaviour
              fastCounter = 0;
              if (slowCounter == 0)
              {
-                 currentRotationSpeed = defaultRotationSpeed;
+                PlayerObject.message = "Default Game Speed";
+                currentRotationSpeed = defaultRotationSpeed;
              }
              if (slowCounter < 2)
              {
-                 currentRotationSpeed = currentRotationSpeed - 30f;
+                PlayerObject.message = "Decreased Game Speed";
+                currentRotationSpeed = currentRotationSpeed - 30f;
                  slowCounter++;
              }
              else if (slowCounter >= 2)
              {
-                 currentRotationSpeed = defaultRotationSpeed;
+                PlayerObject.message = "Default Game Speed";
+                currentRotationSpeed = defaultRotationSpeed;
                  slowCounter = 0;
              }
-             Debug.Log("Current Rotation Speed = " + currentRotationSpeed + ". Slow Counter = " + slowCounter);
-         }
+            Debug.Log("Current Rotation Speed = " + currentRotationSpeed + ". Slow Counter = " + slowCounter);
+            //Debug.Log($"Slow Counter {slowCounter}");
+        }
     }
 
     public void IncreaseRotationSpeed()
@@ -67,15 +72,18 @@ public class Rotator : MonoBehaviour
         slowCounter = 0;
         if (fastCounter == 0)
         {
+            PlayerObject.message = "Default Game Speed";
             currentRotationSpeed = defaultRotationSpeed;
         }
         if (fastCounter < 2)
         {
+            PlayerObject.message = "Increased Game Speed";
             currentRotationSpeed = currentRotationSpeed + 30f;
             fastCounter++;
         }
         else if (fastCounter >= 2)
         {
+            PlayerObject.message = "Default Game Speed";
             currentRotationSpeed = defaultRotationSpeed;
             fastCounter = 0;
         }
@@ -84,6 +92,7 @@ public class Rotator : MonoBehaviour
 
     public void DefaultRotationSpeed()
     {
+        PlayerObject.message = "Default Game Speed";
         slowCounter = 0;
         fastCounter = 0;
         currentRotationSpeed = defaultRotationSpeed;

@@ -300,12 +300,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb2d289d42506624b89de21e0b5e9fee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentColour: 
   colourBlindFriendly: 1
   redSpriteRenderer: {fileID: 5365005233534665659}
   greenSpriteRenderer: {fileID: 5365005233263891342}
   blueSpriteRenderer: {fileID: 5365005232561690461}
   yellowSpriteRenderer: {fileID: 5365005233461688532}
+  colourSwapperSpriteRenderer: {fileID: 4128386617657233623, guid: 0b15009227e2432479fab767df887254, type: 3}
   redBase: {fileID: -240263295, guid: 2d6a7f9957c6fb34e8d8658a91b85e76, type: 3}
   greenBase: {fileID: -212617957, guid: 2d6a7f9957c6fb34e8d8658a91b85e76, type: 3}
   blueBase: {fileID: -2076453800, guid: 2d6a7f9957c6fb34e8d8658a91b85e76, type: 3}
@@ -314,15 +314,8 @@ MonoBehaviour:
   greenLeaf: {fileID: 1406179312, guid: a3e57109556574f4c9464c04b96a15fa, type: 3}
   blueRaindrop: {fileID: -1835724919, guid: a3e57109556574f4c9464c04b96a15fa, type: 3}
   yellowStar: {fileID: 1927673470, guid: a3e57109556574f4c9464c04b96a15fa, type: 3}
-  spriteRenderer: {fileID: 7325944114068226212, guid: cb6d5ff9ae369dd469ebb0cca5921295, type: 3}
-  playerRedBase: {fileID: 21300000, guid: acd3821fd5eb31d4f8124f846c7b0bc3, type: 3}
-  playerGreenBase: {fileID: 21300000, guid: 22c43aeac7261c34c83017176f293d6c, type: 3}
-  playerBlueBase: {fileID: 21300000, guid: b5e874bdaaf6ff5419d1b0c49a7bd670, type: 3}
-  playerYellowBase: {fileID: 21300000, guid: d05b8015fa10e3c41b4464489421ccf1, type: 3}
-  playerRedHeart: {fileID: 21300000, guid: e9ccf0530b9595043b16e6faee86bf08, type: 3}
-  playerGreenLeaf: {fileID: 21300000, guid: 697d3c624ec41f84e9b7f9895e8347bf, type: 3}
-  playerBlueRaindrop: {fileID: 21300000, guid: fed02d9b66a1d8b408627dc68670421a, type: 3}
-  playerYellowStar: {fileID: 21300000, guid: 1dfc89250b805f04e85da6e620e40c1c, type: 3}
+  colourSwapperBase: {fileID: 21300000, guid: 2389945b71f2c33499098d5229771a91, type: 3}
+  colourSwapperWithShapes: {fileID: 21300000, guid: 49fecad4dfed69e4c9ab0f999f7052b8, type: 3}
 --- !u!1 &5365005233461688530
 GameObject:
   m_ObjectHideFlags: 0

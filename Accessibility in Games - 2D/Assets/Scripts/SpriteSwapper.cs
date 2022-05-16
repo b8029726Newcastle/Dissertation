@@ -11,12 +11,13 @@ public class SpriteSwapper : MonoBehaviour
     public bool colourBlindFriendly = true; //Colour Blind-Friendly assets are ON by default
 
     [SerializeField]
-    SpriteRenderer redSpriteRenderer, greenSpriteRenderer, blueSpriteRenderer, yellowSpriteRenderer;
+    SpriteRenderer redSpriteRenderer, greenSpriteRenderer, blueSpriteRenderer, yellowSpriteRenderer, colourSwapperSpriteRenderer;
 
     [SerializeField]
     //SpriteRenderer cyanBase, yellowBase, magentaBase, pinkBase; //delete this
     Sprite redBase, greenBase, blueBase, yellowBase, //base assets
-        redHeart, greenLeaf, blueRaindrop, yellowStar;  //custom assets with shapes
+        redHeart, greenLeaf, blueRaindrop, yellowStar,
+        colourSwapperBase, colourSwapperWithShapes;  //custom assets with shapes
 
 
     // Start is called before the first frame update
@@ -35,6 +36,7 @@ public class SpriteSwapper : MonoBehaviour
             greenSpriteRenderer.sprite = greenLeaf;
             blueSpriteRenderer.sprite = blueRaindrop;
             yellowSpriteRenderer.sprite = yellowStar;
+            colourSwapperSpriteRenderer.sprite = colourSwapperWithShapes;
         }
         else if (PlayerObject.colourBlindFriendly == false) //turn ON Colour Blind-Friendly assets by changing to base assets
         {            
@@ -42,6 +44,7 @@ public class SpriteSwapper : MonoBehaviour
             greenSpriteRenderer.sprite = greenBase;
             blueSpriteRenderer.sprite = blueBase;
             yellowSpriteRenderer.sprite = yellowBase;
+            colourSwapperSpriteRenderer.sprite = colourSwapperBase;
         }
     }
     private void OnDestroy()

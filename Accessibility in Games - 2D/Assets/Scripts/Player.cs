@@ -4,14 +4,16 @@ using System; //import for Action
 using System.Linq; //ToArray
 using UnityEngine;
 using UnityEngine.Windows.Speech; //import for KeywordRecognizer
-using UnityEngine.SceneManagement;
+using UnityEngine.SceneManagement; //to reload Current Scene
 
 public class Player : MonoBehaviour
 {
     Rotator[] RotatorObject;
 
+    public string message;
+
     public bool colourBlindFriendly = true; //Colour Blind-Friendly assets are ON by default
-    private bool voiceControl = false;
+    public bool voiceControl = false;
 
     public KeywordRecognizer keywordRecognizer;
     public Dictionary<string, Action> actions = new Dictionary<string, Action>(); //key = string, value = action
@@ -49,6 +51,12 @@ public class Player : MonoBehaviour
     Sprite playerRedBase, playerGreenBase, playerBlueBase, playerYellowBase,
         playerRedHeart, playerGreenLeaf, playerBlueRaindrop, playerYellowStar;
 
+
+    private void Awake()
+    {
+        Application.targetFrameRate = 240;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -63,7 +71,15 @@ public class Player : MonoBehaviour
         actions.Add("Jump", Jump);
         actions.Add("Dash", Dash);
         actions.Add("Steady", Steady);
+
+        //actions.Add("Activate Visual Assist", SwapAsset);
+        //actions.Add("Deactivate Visual Assist", SwapAsset);
         actions.Add("Swap Assets", SwapAsset);
+
+        //actions.Add("Activate Voice Control", VoiceControl);
+        //actions.Add("Deactivate Voice Control", VoiceControl);
+        actions.Add("Voice Control", VoiceControl);
+
         actions.Add("Decrease Game Speed", DecreaseGameSpeed);
         actions.Add("Increase Game Speed", IncreaseGameSpeed);        
         actions.Add("Default Game Speed", DefaultGameSpeed);
@@ -79,7 +95,7 @@ public class Player : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {        
         if (Input.GetKeyDown(KeyCode.Q))
             SwapAsset();
 
@@ -123,19 +139,22 @@ public class Player : MonoBehaviour
             rigidBody2D.velocity = Vector2.up * jumpForce;
             //rigidBody2D.velocity = Vector2.up * jumpForce + Vector2.right; //make it go left and right  ---  prob map to "Q/E" buttons
             Debug.Log($"Base Jump Force is {jumpForce}. Base Velocity is {rigidBody2D.velocity}");
+            message = "Jump";
         }
     }
 
     private void Dash()
     {
-        //taesdasda
+        //rigidBody2D.simulated = true;
         rigidBody2D.velocity = Vector2.up * (jumpForce + 1.5f);
         Debug.Log($"Dash Jump Force is {jumpForce}. Dash Velocity is {rigidBody2D.velocity}");
+        message = "Dash";
     }
     private void Steady()
     {
         rigidBody2D.velocity = Vector2.up * (jumpForce - 1);
         Debug.Log($"Steady Jump Force is {jumpForce}. Dash Velocity is {rigidBody2D.velocity}");
+        message = "Steady";
     }
 
 
@@ -151,6 +170,7 @@ public class Player : MonoBehaviour
                     case "Blue": spriteRenderer.sprite = playerBlueBase; break;
                     case "Yellow": spriteRenderer.sprite = playerYellowBase; break;
                 }
+                message = "Deactivated Visual Assist";
                 colourBlindFriendly = false;
             }                
             else if (colourBlindFriendly == false) //turn ON Colour Blind-Friendly assets by changing to base assets
@@ -162,6 +182,7 @@ public class Player : MonoBehaviour
                     case "Blue": spriteRenderer.sprite = playerBlueRaindrop; break;
                     case "Yellow": spriteRenderer.sprite = playerYellowStar; break;
                 }
+                message = "Activated Visual Assist";
                 colourBlindFriendly = true;
             }
         }
@@ -172,17 +193,30 @@ public class Player : MonoBehaviour
         {
             if(voiceControl == false) //turn ON Voice Control and slow down game pace to accomodate for delays
             {
+                foreach (Rotator rotator in RotatorObject)
+                {
+                    if(rotator.slowCounter == 0)
+                        DecreaseGameSpeed();
+                }                
                 jumpForce = 4;
                 rigidBody2D.gravityScale = 0.5f;
                 voiceControl = true;
 
+                message = "Activated Voice Assist";
                 //maybe add anothger jump like a quick "dash" (jump force 5 --- add an if statement KeyDown.W) or a float like "steady" little jump
             }
             else if (voiceControl == true) //turn OFF Voice Control and set game pace back to normal
             {
+                foreach (Rotator rotator in RotatorObject)
+                {
+                    if (rotator.slowCounter > 0)
+                        DefaultGameSpeed();
+                }                
                 jumpForce = 7.5f;
                 rigidBody2D.gravityScale = 2;
                 voiceControl = false;
+
+                message = "Deactivated Voice Assist";
             }
             //interpolated string
             Debug.Log($"Jumpforce is: {jumpForce} and the Gravity Scale is: {rigidBody2D.gravityScale}");
@@ -220,6 +254,7 @@ public class Player : MonoBehaviour
         if(collision.CompareTag("ColourChanger")) //using == is inefficient according to Unity (UNT00 002)
         {
             SetRandomColour();
+            TextUI.count += 1; //change this to Collectible instead of ColourChanger
             Destroy(collision.gameObject);
             return;
         }
@@ -228,6 +263,7 @@ public class Player : MonoBehaviour
         if (collision.name != currentColour) //|| collision.tag != currentColour --- USE TAGS only after assets are changed
         {
             Debug.Log("GAME OVER or REDUCED HEALTH?");
+            message = "GAME OVER";
             //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); //reload current scene, player starts from scratch --- maybe add a checkpoint next time
             //You done fucked up
             //mayybe reduce health
